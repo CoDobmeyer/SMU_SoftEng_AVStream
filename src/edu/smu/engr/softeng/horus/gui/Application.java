@@ -9,6 +9,7 @@ public class Application implements ActionListener {
 
       //Panels
       private LoginFrame loginFrame;
+      private StreamListFrame streamListFrame;
 
       /**
        * Starts the components and runs application
@@ -32,6 +33,13 @@ public class Application implements ActionListener {
                   desc += "Username: "+loginFrame.getUsername()+"\n";
                   desc += "Password: "+String.valueOf(loginFrame.getPassword());
                   Constants.showPopup(loginFrame, "Login Information", desc, JOptionPane.PLAIN_MESSAGE);
+                  
+                  //TODO: Add authentication code
+                  
+                  //Open Stream list
+                  streamListFrame = new StreamListFrame(this);
+                  streamListFrame.pack();
+                  streamListFrame.setVisible(true);
             }
       }
 

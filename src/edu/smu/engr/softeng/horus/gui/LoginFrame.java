@@ -1,11 +1,15 @@
 package edu.smu.engr.softeng.horus.gui;
-import java.awt.event.ActionEvent;
+import java.awt.ComponentOrientation;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionListener;
 
-import javax.swing.*;
-import java.awt.*;
-import java.io.IOException;
-import java.net.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 public class LoginFrame extends JFrame {
 
@@ -13,6 +17,9 @@ public class LoginFrame extends JFrame {
       private JTextField loginUsernameInput;
       private JPasswordField loginPasswordInput;
 
+      /**
+       * @param actionListener Listener that each frame calls to execute and action, typically Application
+       */
       public LoginFrame(ActionListener actionListener) {
             super("Spy camera login");
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,6 +77,7 @@ public class LoginFrame extends JFrame {
 
             //Add okay button
             JButton okayButton = new JButton("Login");
+            getRootPane().setDefaultButton(okayButton); //Make default for enter capabilities
             okayButton.setActionCommand(Constants.ACTION_LOGIN);
             okayButton.addActionListener(actionListener);
             c = new GridBagConstraints();
