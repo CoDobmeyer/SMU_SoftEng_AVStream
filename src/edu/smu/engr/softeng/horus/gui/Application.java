@@ -5,8 +5,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import com.sun.jna.Native;
+import com.sun.jna.NativeLibrary;
+
+import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.medialist.MediaList;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
+import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 public class Application implements ActionListener {
 
@@ -75,6 +80,9 @@ public class Application implements ActionListener {
        * @param args - not needed.
        */
       public static void main(String[] args) {
+            NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "libraries/");
+            Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+            
             new Application();
       }
 }
