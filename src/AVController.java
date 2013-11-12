@@ -6,8 +6,12 @@
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 
+import com.googlecode.javacv.FFmpegFrameRecorder;
+import com.googlecode.javacv.FrameGrabber.Exception;
 import com.googlecode.javacv.OpenCVFrameGrabber;
+import com.googlecode.javacv.cpp.opencv_core.IplImage;
 
 /**
  *
@@ -17,7 +21,9 @@ public class AVController {
     
 	private OpenCVFrameGrabber grabber = null;
 	private Object micObject = null;
-	
+	private int imageWidth = 620;
+	private int imageHeight = 480;
+	private double frameRate = 24;
     /**
      * AaronE
      * @param recVideo
@@ -36,7 +42,22 @@ public class AVController {
     }
     
     private void startCapture() {
-		// TODO Auto-generated method stub
+
+    	if(grabber != null)
+    	{
+    		try {
+				grabber.start();
+				
+				String fileName = String.valueOf(System.currentTimeMillis());
+				File chunk = new File(fileName);
+							
+				FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(chunk,  grabber.getImageWidth(),grabber.getImageHeight());
+				
+				IplImage grabbedImage = grabber.grab();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}//end of try/catch block
+    	}
 		
 	}
 
@@ -48,6 +69,9 @@ public class AVController {
 
 	private void initializeCamera() {
     	grabber = new OpenCVFrameGrabber(0);
+    	grabber.setFrameRate(frameRate);
+    	grabber.setImageWidth(imageWidth);
+    	grabber.setImageHeight(imageHeight);
 	}
 
 	private ByteArrayOutputStream EncryptPayload(ByteArrayInputStream data)
