@@ -15,8 +15,8 @@ import com.googlecode.javacv.OpenCVFrameGrabber;
  */
 public class AVController {
     
-	OpenCVFrameGrabber grabber = null;
-	Object micObject = null;
+	private OpenCVFrameGrabber grabber = null;
+	private Object micObject = null;
 	
     /**
      * AaronE
