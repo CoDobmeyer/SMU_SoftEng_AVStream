@@ -25,6 +25,8 @@ public class AVController {
 	private int imageWidth = 620;
 	private int imageHeight = 480;
 	private double frameRate = 24;
+	private int codec = com.googlecode.javacv.cpp.avcodec.AV_CODEC_ID_MPEG1VIDEO;
+
     /**
      * AaronE
      * @param recVideo
@@ -53,7 +55,7 @@ public class AVController {
 				File chunk = new File(fileName);
 							
 				FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(chunk,  grabber.getImageWidth(),grabber.getImageHeight());
-				
+				recorder.setVideoCodec(codec);
 				IplImage grabbedImage = grabber.grab();
 			} catch (Exception e) {
 				e.printStackTrace();
