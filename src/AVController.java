@@ -7,12 +7,17 @@
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
+import com.googlecode.javacv.OpenCVFrameGrabber;
+
 /**
  *
  * @author Airagale
  */
 public class AVController {
     
+	OpenCVFrameGrabber grabber = null;
+	Object micObject = null;
+	
     /**
      * AaronE
      * @param recVideo
@@ -21,10 +26,31 @@ public class AVController {
      */
     public void execute(boolean recVideo, boolean recAudio)
     {
+        if(recVideo)
+        	initializeCamera();
         
+        if(recAudio)
+        	initializeMic();
+        
+        startCapture();
     }
     
-    private ByteArrayOutputStream EncryptPayload(ByteArrayInputStream data)
+    private void startCapture() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void initializeMic() {
+
+    	//method for audio team to initialize the microphone
+		
+	}
+
+	private void initializeCamera() {
+    	grabber = new OpenCVFrameGrabber(0);
+	}
+
+	private ByteArrayOutputStream EncryptPayload(ByteArrayInputStream data)
     {
         return null;
     }
