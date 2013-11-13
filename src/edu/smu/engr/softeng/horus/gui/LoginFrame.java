@@ -16,12 +16,19 @@ public class LoginFrame extends JFrame {
       //Input fields
       private JTextField loginUsernameInput;
       private JPasswordField loginPasswordInput;
+      
+      //Names of components
+      public static final String FRAME_NAME = "LOGIN_FRAME";
+      public static final String USERNAME_INPUT_NAME = "USERNAME_INPUT";
+      public static final String PASSWORD_INPUT_NAME = "USERNAME_INPUT";
+      public static final String OKAY_BUTTON_NAME = "OKAY_BUTTON";
 
       /**
        * @param actionListener Listener that each frame calls to execute and action, typically Application
        */
       public LoginFrame(ActionListener actionListener) {
             super("Spy camera login");
+            setName(FRAME_NAME);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setSize(300, 300);
             setLayout(new GridBagLayout());
@@ -52,6 +59,7 @@ public class LoginFrame extends JFrame {
 
             //Add username input
             loginUsernameInput = new JTextField(20);
+            loginUsernameInput.setName(USERNAME_INPUT_NAME);
             c = new GridBagConstraints();
             c.gridx = 1;
             c.gridy = 1;
@@ -69,6 +77,7 @@ public class LoginFrame extends JFrame {
 
             //Add password input
             loginPasswordInput = new JPasswordField(20);
+            loginPasswordInput.setName(PASSWORD_INPUT_NAME);
             c = new GridBagConstraints();
             c.gridx = 1;
             c.gridy = 2;
@@ -77,6 +86,7 @@ public class LoginFrame extends JFrame {
 
             //Add okay button
             JButton okayButton = new JButton("Login");
+            okayButton.setName(OKAY_BUTTON_NAME);
             getRootPane().setDefaultButton(okayButton); //Make default for enter capabilities
             okayButton.setActionCommand(Constants.ACTION_LOGIN);
             okayButton.addActionListener(actionListener);

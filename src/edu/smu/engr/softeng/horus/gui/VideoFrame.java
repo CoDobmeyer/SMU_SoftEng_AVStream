@@ -3,6 +3,8 @@
  */
 package edu.smu.engr.softeng.horus.gui;
 
+//import PlayerControlsPanel;
+
 import java.awt.BorderLayout;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
@@ -14,11 +16,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import com.sun.jna.NativeLibrary;
+
 import uk.co.caprica.vlcj.component.EmbeddedMediaListPlayerComponent;
 import uk.co.caprica.vlcj.medialist.MediaList;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.list.MediaListPlayer;
 import uk.co.caprica.vlcj.player.list.MediaListPlayerMode;
+import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 public class VideoFrame extends JFrame {
       
@@ -60,17 +65,24 @@ public class VideoFrame extends JFrame {
             mediaListPlayerComponent.setVisible(true);
             setContentPane(mediaListPlayerComponent);
             
+            //testing PLayerControlsPanel
+          PlayerControlsPanel controls = new PlayerControlsPanel(mediaListPlayerComponent);
+          add(controls);
+		setSize(800, 600);
+		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            
             //Add change list button
-            JButton cList = new JButton("Change");
-            getRootPane().setDefaultButton(cList); //Make default for enter capabilities
-            cList.setActionCommand("ChangeList");
-            cList.addActionListener(actionListener);
-            c = new GridBagConstraints();
-            c.anchor = GridBagConstraints.LINE_END;
-            c.gridx = 1;
-            c.gridy = 3;
-            c.insets = new Insets(5, 10, 5, 10);
-            add(cList, BorderLayout.SOUTH);
+//            JButton cList = new JButton("Change");
+//            getRootPane().setDefaultButton(cList); //Make default for enter capabilities
+//            cList.setActionCommand("ChangeList");
+//            cList.addActionListener(actionListener);
+//            c = new GridBagConstraints();
+//            c.anchor = GridBagConstraints.LINE_END;
+//            c.gridx = 1;
+//            c.gridy = 3;
+//            c.insets = new Insets(5, 10, 5, 10);
+//            add(cList, BorderLayout.SOUTH);
             
       }
 
@@ -88,12 +100,12 @@ public class VideoFrame extends JFrame {
        */
       public static void main(String[] args) {
             //Create video frame
-            /*VideoFrame videoFrame = new VideoFrame(null);
+            VideoFrame videoFrame = new VideoFrame(null);
             
             videoFrame.pack();
             videoFrame.setVisible(true);
             
-            videoFrame.getMediaListPlayer().play();*/
+            videoFrame.getMediaListPlayer().play();
             
             //Tell it to load files, etc.
             //Call methods in video frame, avoid creating elements here
