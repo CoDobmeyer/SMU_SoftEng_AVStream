@@ -5,7 +5,6 @@ package edu.smu.engr.softeng.horus.gui;
 
 //import PlayerControlsPanel;
 
-import java.awt.BorderLayout;
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -13,17 +12,13 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-
-import com.sun.jna.NativeLibrary;
 
 import uk.co.caprica.vlcj.component.EmbeddedMediaListPlayerComponent;
 import uk.co.caprica.vlcj.medialist.MediaList;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.list.MediaListPlayer;
 import uk.co.caprica.vlcj.player.list.MediaListPlayerMode;
-import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 public class VideoFrame extends JFrame {
       
@@ -35,7 +30,7 @@ public class VideoFrame extends JFrame {
             super("Video Stream");
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             Dimension d = new Dimension();
-            d.setSize(1050, 600);
+            d.setSize(534, 400);
             setMinimumSize(d);
             setLayout(new GridBagLayout());
             setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
@@ -55,23 +50,17 @@ public class VideoFrame extends JFrame {
             //Set settings for media player
             mediaListPlayer.setMediaList(mediaList);
             mediaListPlayer.setMode(MediaListPlayerMode.LOOP);
-            
-            //Add media player
+
+            //Add PlayerControlsPanel
+            PlayerControlsPanel controls = new PlayerControlsPanel(mediaListPlayerComponent);
             c = new GridBagConstraints();
-            c.anchor = GridBagConstraints.NORTH;
+            c.anchor = GridBagConstraints.LINE_END;
             c.gridx = 2;
-            c.gridy = 1;
+            c.gridy = 3;
             c.insets = new Insets(5, 10, 5, 10);
-            mediaListPlayerComponent.setVisible(true);
-            setContentPane(mediaListPlayerComponent);
-            
-            //testing PLayerControlsPanel
-          PlayerControlsPanel controls = new PlayerControlsPanel(mediaListPlayerComponent);
-          add(controls);
-		setSize(800, 600);
-		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            
+		add(controls, c);
+		setContentPane(controls);
+		
             //Add change list button
 //            JButton cList = new JButton("Change");
 //            getRootPane().setDefaultButton(cList); //Make default for enter capabilities
