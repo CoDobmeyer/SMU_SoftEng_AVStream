@@ -52,26 +52,26 @@ public class AVController {
     		try {
 				grabber.start();
 				
-				for (long stop=System.nanoTime()+TimeUnit.SECONDS.toNanos(2);stop>System.nanoTime();) {
-					
-					String fileName = String.valueOf(System.currentTimeMillis());
+				while(true){
+					String fileName = String.valueOf(System.currentTimeMillis()) + ".mpeg";
 					File chunk = new File(fileName);
 								
 					FFmpegFrameRecorder recorder = new FFmpegFrameRecorder(chunk,  grabber.getImageWidth(),grabber.getImageHeight());
 					recorder.setVideoCodec(codec);
+					recorder.setFormat("mpeg");
 					recorder.setFrameRate(frameRate);
+					recorder.setVideoBitrate(5*imageHeight*imageWidth);
 					IplImage grabbedImage = grabber.grab();
 					
 					recorder.start();
-					
-					while ((grabbedImage = grabber.grab()) != null) {
-			            recorder.record(grabbedImage);
-			        }
-					
+					//got this for statement from http://stackoverflow.com/questions/2550536/java-loop-for-a-certain-duration
+					for (long stop=System.currentTimeMillis() + 5000;stop>System.currentTimeMillis();)
+						recorder.record(grabbedImage);
+	
 					recorder.stop();
-			    }//end of for loop
+				}
 				
-				grabber.stop();
+				//grabber.stop();
 			} catch (Exception e) {
 				e.printStackTrace();
 			} catch (com.googlecode.javacv.FrameRecorder.Exception e) {
