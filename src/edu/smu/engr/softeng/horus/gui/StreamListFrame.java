@@ -11,16 +11,27 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class StreamListFrame extends JFrame {
 
+      //Components
       private JButton openVideoButton;
       private JButton openAudioButton;
       private JButton openBothButton;
       private JList streamList; //TODO: Make this list of type "Stream"
       
+      //Component names
+      public static final String FRAME_NAME = "STREAM_LIST_FRAME";
+      public static final String AUDIO_BUTTON_NAME = "AUDIO_BUTTON";
+      public static final String VIDEO_BUTTON_NAME = "VIDEO_BUTTON";
+      public static final String COMBINED_BUTTON_NAME = "COMBINED_BUTTON";
+      public static final String LIST_NAME = "STREAM_LIST";
+      
       public StreamListFrame(ActionListener actionListener) {
             super("Stream List");
+            setName(FRAME_NAME);
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setSize(300, 600);
             setLayout(new GridBagLayout());
@@ -40,47 +51,62 @@ public class StreamListFrame extends JFrame {
             add(titleLabel, c);
             
             //Add stream list
-            streamList = new JList();
+            streamList = new JList(new String[] {"Stream 1", "Stream 2", "Stream 3"});
+            streamList.setName(LIST_NAME);
+            streamList.setSize(250, 500);
             streamList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); //One at a time
             c = new GridBagConstraints();
             c.anchor = GridBagConstraints.WEST;
             c.gridx = 0;
             c.gridy = 1;
             c.gridwidth = 3;
-            c.insets = new Insets(10, 10, 10, 10);
+            c.fill = GridBagConstraints.BOTH;
+            c.insets = new Insets(5, 10, 5, 10);
             add(streamList, c);
             
             //Add open audio button
             openAudioButton = new JButton("Open Audio Stream");
-            openAudioButton.setActionCommand(Constants.ACTION_LOGIN);
+            openAudioButton.setName(AUDIO_BUTTON_NAME);
+            openAudioButton.setActionCommand(Constants.ACTION_OPEN_AUDIO_STREAM);
             openAudioButton.addActionListener(actionListener);
             c = new GridBagConstraints();
             c.anchor = GridBagConstraints.LINE_END;
             c.gridx = 0;
             c.gridy = 2;
-            c.insets = new Insets(10, 10, 10, 10);
+            c.insets = new Insets(5, 10, 10, 5);
             add(openAudioButton, c);
             
             //Add open audio button
             openVideoButton = new JButton("Open Video Stream");
-            openVideoButton.setActionCommand(Constants.ACTION_LOGIN);
+            openVideoButton.setName(VIDEO_BUTTON_NAME);
+            openVideoButton.setActionCommand(Constants.ACTION_OPEN_VIDEO_STREAM);
             openVideoButton.addActionListener(actionListener);
             c = new GridBagConstraints();
             c.anchor = GridBagConstraints.LINE_END;
             c.gridx = 1;
             c.gridy = 2;
-            c.insets = new Insets(10, 10, 10, 10);
+            c.insets = new Insets(5, 5, 10, 5);
             add(openVideoButton, c);
             
             //Add open audio button
-            openBothButton = new JButton("Open Video&Audio Stream");
-            openBothButton.setActionCommand(Constants.ACTION_OPEN_VIDEO_STREAM);
+            openBothButton = new JButton("Open Combined Stream");
+            openBothButton.setName(COMBINED_BUTTON_NAME);
+            openBothButton.setActionCommand(Constants.ACTION_OPEN_COMBINED_STREAM);
             openBothButton.addActionListener(actionListener);
             c = new GridBagConstraints();
             c.anchor = GridBagConstraints.LINE_END;
             c.gridx = 2;
             c.gridy = 2;
-            c.insets = new Insets(10, 10, 10, 10);
+            c.insets = new Insets(5, 5, 10, 10);
             add(openBothButton, c);
-      }     
+      }
+      
+      private class ValueChangedListener implements ListSelectionListener {
+
+            @Override
+            public void valueChanged(ListSelectionEvent event) {
+                  //TODO: When combined with streams, get what streams are available
+                  //and grey out buttons as necessary   
+            }
+      }
 }

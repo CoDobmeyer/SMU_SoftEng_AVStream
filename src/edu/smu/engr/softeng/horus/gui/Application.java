@@ -45,15 +45,32 @@ public class Application implements ActionListener {
                   
                   //TODO: Add authentication code
                   
+                  //Hide login window
+                  loginFrame.setVisible(false);
+                  
                   //Open Stream list
                   streamListFrame = new StreamListFrame(this);
                   streamListFrame.pack();
                   streamListFrame.setVisible(true);
             }
-            if(action.getActionCommand().equals(Constants.ACTION_OPEN_VIDEO_STREAM)) {
+            else if(action.getActionCommand().equals(Constants.ACTION_OPEN_AUDIO_STREAM)) {
+                  //Open Audio Stream
+            }
+            else if(action.getActionCommand().equals(Constants.ACTION_OPEN_VIDEO_STREAM)) {
                   //Open Video Stream
                   
-                //TODO: Add code to make this be a specific stream
+                  //TODO: Add code to make this be a specific stream
+                  
+                  videoFrame = new VideoFrame(this);
+                  videoFrame.pack();
+                  videoFrame.setVisible(true);
+                  
+                  videoFrame.getMediaListPlayer().play();
+            }
+            else if(action.getActionCommand().equals(Constants.ACTION_OPEN_COMBINED_STREAM)) {
+                  //Open Combined Stream
+                  
+                  //TODO: Add code to make this be a specific stream
                   
                   videoFrame = new VideoFrame(this);
                   videoFrame.pack();
@@ -62,7 +79,7 @@ public class Application implements ActionListener {
                   videoFrame.getMediaListPlayer().play();
             }
             //TODO: Delete this method, only temporary for verifying list of videos can be changed
-            if(action.getActionCommand().equals("ChangeList")) {
+            else if(action.getActionCommand().equals("ChangeList")) {
                   //Change List Action
                   MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
                   MediaList mediaList = mediaPlayerFactory.newMediaList();
@@ -80,8 +97,11 @@ public class Application implements ActionListener {
        * @param args - not needed.
        */
       public static void main(String[] args) {
-            NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "libraries/");
-            Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+            //Load libraries (if on PC)
+            if(RuntimeUtil.isWindows()) {
+                  NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "libraries/");
+                  Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+            }
             
             new Application();
       }
