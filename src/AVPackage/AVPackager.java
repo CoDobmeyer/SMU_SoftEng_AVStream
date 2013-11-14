@@ -29,8 +29,8 @@ public class AVPackager extends Thread
 		
 		try {
 			unencryptedPayload = convertFileToBAIS(file);
-			encryptedPayload = encryptPayload(unencryptedPayload);
-			packageMessage(encryptedPayload);
+			//encryptedPayload = encryptPayload(unencryptedPayload);
+			//packageMessage(encryptedPayload);
 			
 		} catch (IOException e) {}
 		
