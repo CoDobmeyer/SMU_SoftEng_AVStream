@@ -12,7 +12,9 @@ import java.io.InputStream;
 
 /**
  * AVPackager
- * {Description}
+ * The AVPackager is charged with processing the AV chunks, 
+ * creating and encrypting the message, and sending the message
+ * to Common Infrastructure for processing/sending.
  * @author Video
  */
 
@@ -22,8 +24,8 @@ public class AVPackager extends Thread {
 	private ByteArrayOutputStream encryptedPayload;
 	
 	/**
-	 * {Description}
-	 * @param f {Description}
+	 * AVPackager constructor
+	 * @param f: Reference to file containing an AV chunk
 	 */
 	public AVPackager (File f) {
 		System.out.println("AVPackager created!");
@@ -31,10 +33,11 @@ public class AVPackager extends Thread {
 	}
 	
 	/**
-	 * {Description}
+	 * Overridden function of the Thread class, 
+	 * called when the thread is started
 	 * @param No parameter values.
 	 * @return No return value.
-	 * @exception {Description}
+	 * @exception Handles FileNotFound errors
 	 */
 	@Override
 	public void run() {
@@ -52,10 +55,12 @@ public class AVPackager extends Thread {
 	}
 	
 	/**
-	 * {Description}
-	 * @param file {Description}
-	 * @return {Description}
-	 * @throws IOException {Description}
+	 * Converts file contents (containing AV chunk) into ByteArrayInputStream
+	 * for compatibility with Security's encrypt functionality.
+	 * @param file: Reference to file containing an AV chunk
+	 * @return AV chunk, converted into type ByteArrayInputStream
+	 * @throws IOException: Handles FileNotFound error 
+	 *       and any errors reading from file
 	 */
 	private ByteArrayInputStream convertFileToBais(File file) throws IOException {
 		//online resource: http://www.coderanch.com/t/275789//java/Convert-java-io-File-ByteArryInputStream
@@ -79,9 +84,9 @@ public class AVPackager extends Thread {
 	}
 	
 	/**
-	 * {Description}
-	 * @param data {Description}
-	 * @return {Description}
+	 * Calls Security's encrypt function to encrypt the AV chunk payload
+	 * @param data: AV chunk to be encrypted
+	 * @return Encrypted AV chunk
 	 */
 	private ByteArrayOutputStream encryptPayload(ByteArrayInputStream data) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -95,8 +100,9 @@ public class AVPackager extends Thread {
 	}
 	
 	/**
-	 * {Description}
-	 * @param msg {Description}
+	 * Sets the payload of the AVMessage to be sent, and sends the AVMessage
+	 * to Common Infrastructure for processing/sending.
+	 * @param msg: Encrypted AV chunk
 	 * @return No return value.
 	 */
 	private void packageMessage(ByteArrayOutputStream msg) {
