@@ -5,11 +5,7 @@ package AVPackage;
  * and open the template in the editor.
  */
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.concurrent.TimeUnit;
-
 import com.googlecode.javacv.FFmpegFrameRecorder;
 import com.googlecode.javacv.FrameGrabber.Exception;
 import com.googlecode.javacv.OpenCVFrameGrabber;
@@ -54,6 +50,8 @@ public class AVController {
     		try {
 				grabber.start();
 				
+				AVPackager avPackager;
+				
 				while(true){
 					String fileName = String.valueOf(System.currentTimeMillis()) + ".mpeg";
 					File chunk = new File(fileName);
@@ -71,8 +69,11 @@ public class AVController {
 						grabbedImage = grabber.grab();
 						recorder.record(grabbedImage);
 					}
-	
+					
 					recorder.stop();
+					
+					avPackager = new AVPackager(chunk);
+					avPackager.start();
 				}
 				
 				//grabber.stop();
