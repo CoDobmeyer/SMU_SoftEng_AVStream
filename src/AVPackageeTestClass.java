@@ -1,4 +1,4 @@
-import smu.edu.engr.softeng.horus.av.AVController;
+import edu.smu.engr.softeng.horus.av.AVController;
 
 public class AVPackageeTestClass {
 
