@@ -43,6 +43,16 @@ public class AVController {
         startCapture();
     }
     
+/*
+ * Comment by: AaronE
+ * !@param
+ * Caputures video, stores in AVPackage, sends AVPackage, Restarts process.
+ * 
+ * Instantiates the AVPackage, then sets files to store video. 
+ * Starts the recorder and records for set amount of time. 
+ * Ends Recording, stores recorded data in AVPackage
+ * Runs recording in the background while simultaneously packaging data
+ */
     private void startCapture() {
 
     	if(grabber != null)
@@ -90,6 +100,7 @@ public class AVController {
 	private void initializeMic() {
 
     	//method for audio team to initialize the microphone
+		//Yea. That. 
 		
 	}
 
