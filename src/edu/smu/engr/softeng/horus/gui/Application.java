@@ -99,8 +99,35 @@ public class Application implements ActionListener {
       public static void main(String[] args) {
             //Load libraries (if on PC)
             if(RuntimeUtil.isWindows()) {
-                  NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "libraries/win64");
-                  Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+                  if (System.getProperty("os.arch").equals("amd64")) {
+                        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "libraries/winjvm64");
+                        Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+                  }
+                  else if (System.getProperty("os.arch").equals("x86")) {
+                        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "libraries/winjvm32");
+                        Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+                  }
+            }
+            else if(RuntimeUtil.isMac()) {
+                  if (System.getProperty("os.arch").equals("ppc")) {
+                        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "libraries/macjvm64");
+                        Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+                  }
+                  else if (System.getProperty("os.arch").equals("i386")) {
+                        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "libraries/macjvm32");
+                        Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+                  }
+            }
+            else if(RuntimeUtil.isNix()) {
+                  if (System.getProperty("os.arch").equals("sparc") ||
+                              System.getProperty("os.arch").equals("amd64")) {
+                        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "libraries/nixjvm64");
+                        Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+                  }
+                  else if (System.getProperty("os.arch").equals("i386")) {
+                        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "libraries/nixjvm32");
+                        Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+                  }
             }
             
             new Application();
