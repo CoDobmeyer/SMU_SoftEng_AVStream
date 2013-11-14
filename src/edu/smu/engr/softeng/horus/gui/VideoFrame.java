@@ -26,6 +26,9 @@ public class VideoFrame extends JFrame {
       private final EmbeddedMediaListPlayerComponent mediaListPlayerComponent = new EmbeddedMediaListPlayerComponent();
       private MediaListPlayer mediaListPlayer = mediaListPlayerComponent.getMediaListPlayer();
       
+      /**
+       * @param actionListener Listener that each frame calls to execute and action, typically Application
+       */
       public VideoFrame(ActionListener actionListener) {
             super("Video Stream");
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

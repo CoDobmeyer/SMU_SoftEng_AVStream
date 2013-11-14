@@ -29,6 +29,9 @@ public class StreamListFrame extends JFrame {
       public static final String COMBINED_BUTTON_NAME = "COMBINED_BUTTON";
       public static final String LIST_NAME = "STREAM_LIST";
       
+      /**
+       * @param actionListener Listener that each frame calls to execute and action, typically Application
+       */
       public StreamListFrame(ActionListener actionListener) {
             super("Stream List");
             setName(FRAME_NAME);
