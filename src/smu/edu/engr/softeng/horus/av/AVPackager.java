@@ -46,7 +46,7 @@ public class AVPackager extends Thread
 		in = new FileInputStream(file);
 		
 	    ByteArrayOutputStream byteOut = new ByteArrayOutputStream((int) file.length());  
-	    byte[] buffer = new byte[4096]; // some large number - pick one  
+	    byte[] buffer = new byte[4096];  
 	   
 		for (int size; (size = in.read(buffer)) != -1; )  
 		  byteOut.write(buffer, 0, size);
@@ -65,7 +65,7 @@ public class AVPackager extends Thread
 		while(data.available() != 0){
 			baos.write(data.read());
 		}
-		//return encrypt(data);
+		//return encrypt(data); //uncomment when Security becomes available
 		return baos;
 	}
 	
@@ -73,7 +73,7 @@ public class AVPackager extends Thread
 	{
 		msg.setPayload(data);
 		
-		//processMessage(msg);
+		//processMessage(msg); //uncomment when CommonInfra becomes available
 	}
 	
 }
