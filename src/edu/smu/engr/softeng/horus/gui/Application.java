@@ -99,7 +99,7 @@ public class Application implements ActionListener {
       public static void main(String[] args) {
             //Load libraries (if on PC)
             if(RuntimeUtil.isWindows()) {
-                  NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "libraries/");
+                  NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "libraries/win64");
                   Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
             }
             
