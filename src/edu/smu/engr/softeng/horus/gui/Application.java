@@ -97,15 +97,25 @@ public class Application implements ActionListener {
        * @param args - not needed.
        */
       public static void main(String[] args) {
-            //Load libraries (if on PC)
+            //Load libraries
+            
+            //Get version
+            String bitness = System.getProperty("sun.arch.data.model");
+            
+            //PC
             if(RuntimeUtil.isWindows()) {
-                  if (System.getProperty("os.arch").equals("amd64")) {
+                  System.out.println(bitness);
+                  if(bitness.equals("64")) {
                         NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "libraries/winjvm64");
                         Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
                   }
-                  else if (System.getProperty("os.arch").equals("x86")) {
+                  else if(bitness.equals("32")) {
                         NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "libraries/winjvm32");
                         Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+                  }
+                  else {
+                        Constants.showPopup(null, "OS Bitness Unknown", "Unknown operating system bitness: "+bitness, JOptionPane.ERROR_MESSAGE);
+                        return;
                   }
             }
             else if(RuntimeUtil.isMac()) {
