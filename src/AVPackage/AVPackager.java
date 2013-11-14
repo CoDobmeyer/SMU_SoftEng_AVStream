@@ -4,12 +4,11 @@ import java.io.File;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-//import {Common Infrastructure}
-//import {Security}
+//import edu.smu.engr.softeng.horus.CommonInstrastructure
+//import edu.smu.engr.softeng.horus.Security
 
 public class AVPackager extends Thread
 {
@@ -32,8 +31,8 @@ public class AVPackager extends Thread
 		
 		try {
 			unencryptedPayload = convertFileToBAIS(file);
-			//encryptedPayload = encryptPayload(unencryptedPayload);
-			//packageMessage(encryptedPayload);
+			encryptedPayload = encryptPayload(unencryptedPayload);
+			packageMessage(encryptedPayload);
 			
 		} catch (IOException e) {}
 		
@@ -62,14 +61,17 @@ public class AVPackager extends Thread
 	
 	private ByteArrayOutputStream encryptPayload(ByteArrayInputStream data)
 	{
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		while(data.available() != 0){
+			baos.write(data.read());
+		}
 		//return encrypt(data);
-		return null;
+		return baos;
 	}
 	
 	private void packageMessage(ByteArrayOutputStream data)
 	{
 		msg.setPayload(data);
-		//AVMessenger msg = new AVMessenger(encryptedPayload);
 		
 		//processMessage(msg);
 	}
