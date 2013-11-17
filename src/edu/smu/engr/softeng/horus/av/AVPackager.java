@@ -1,7 +1,7 @@
 
 /**
  * 11/14/2013- 115 Lines of codes
- * 
+ * 11/17/2013- Aaron: Changed baos to output in encryptPayload(); Easier to understand for others. 
  */
 package edu.smu.engr.softeng.horus.av;
 
@@ -94,14 +94,14 @@ public class AVPackager extends Thread {
 	 * @return Encrypted AV chunk
 	 */
 	private ByteArrayOutputStream encryptPayload(ByteArrayInputStream data) {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
 		
 		while (data.available() != 0) {
-			baos.write(data.read());
+			output.write(data.read());
 		}
 		
 		//return encrypt(data); //uncomment when Security becomes available
-		return baos;
+		return output;
 	}
 	
 	/**
