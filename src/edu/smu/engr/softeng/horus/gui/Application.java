@@ -16,6 +16,7 @@ import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 
 import uk.co.caprica.vlcj.binding.LibVlc;
+import uk.co.caprica.vlcj.discovery.NativeDiscovery;
 import uk.co.caprica.vlcj.medialist.MediaList;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
@@ -107,11 +108,18 @@ public class Application implements ActionListener {
       public static void main(String[] args) {
             //Load libraries
             
-            boolean loaded = promptForLibraries();
             /*
             //Get version
-            String bitness = System.getProperty("sun.arch.data.model");
+            //String bitness = System.getProperty("sun.arch.data.model");
             
+            try {
+                  setupLibVLC();
+            } catch (LibraryNotFoundException e) {
+                  // TODO Auto-generated catch block
+                  e.printStackTrace();
+            }
+            
+            /*
             //PC
             if(RuntimeUtil.isWindows()) {
                   if(bitness.equals("64")) {
@@ -149,6 +157,13 @@ public class Application implements ActionListener {
                   }
             }
             */
+            
+            //First try to load from defaults
+            boolean loaded = setupLibVLC();
+            
+            //Prompt user for location
+            if(!loaded)
+                  loaded = promptForLibraries();
             
             //Start application if loaded
             if(loaded)
@@ -242,4 +257,23 @@ public class Application implements ActionListener {
             
             return false;
       }
+      
+      /**
+       * Attempt to load the libraries from the default paths
+       * 
+       * @return true if libraries were loaded, false otherwise
+       */
+      private static boolean setupLibVLC() {
+
+            new NativeDiscovery().discover();
+
+            // discovery()'s method return value is WRONG on Linux
+            try {
+                LibVlcVersion.getVersion();
+            } catch (Exception e) {
+                return false;
+            }
+            
+            return true;
+     }
 }
