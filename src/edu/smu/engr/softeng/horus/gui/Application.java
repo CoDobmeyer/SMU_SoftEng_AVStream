@@ -2,7 +2,14 @@ package edu.smu.engr.softeng.horus.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.Scanner;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import com.sun.jna.Native;
@@ -12,6 +19,7 @@ import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.medialist.MediaList;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
+import uk.co.caprica.vlcj.version.LibVlcVersion;
 
 public class Application implements ActionListener {
 
@@ -99,6 +107,8 @@ public class Application implements ActionListener {
       public static void main(String[] args) {
             //Load libraries
             
+            boolean loaded = promptForLibraries();
+            /*
             //Get version
             String bitness = System.getProperty("sun.arch.data.model");
             
@@ -138,7 +148,98 @@ public class Application implements ActionListener {
                         Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
                   }
             }
+            */
             
-            new Application();
+            //Start application if loaded
+            if(loaded)
+                  new Application();
+      }
+      
+      /**
+       * Ask the user for the location of the library, save if found.
+       * 
+       * @return true if libraries were loaded, false if otherwise
+       */
+      public static boolean promptForLibraries() {
+            //Look in local file
+            File libraryFile = new File("AVStreamLibrary.txt");
+            if(libraryFile.exists()) {
+                  //Load file
+                  Scanner scan = null;
+                  try {
+                        scan = new Scanner(libraryFile);
+                  } catch (Exception e) { 
+                        //Shouldn't hit here ever, check existence beforehand
+                  }
+                  
+                  if(scan.hasNextLine()) {
+                        //Get the location from the file, try loading files
+                        String location = scan.nextLine();
+                        scan.close();
+                        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), location);
+                        Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+                        
+                        //Check loaded
+                        try {
+                              LibVlcVersion.getVersion();
+                              return true;
+                        } catch (Exception e) {
+                             //Not needed 
+                        }
+                  } else {
+                        scan.close();
+                  }
+            } else {
+                  //Create file if it doesn't exist
+                  try {
+                        libraryFile.createNewFile();
+                  } catch (IOException e) {
+                        Constants.showPopup(null, "Couldn't create file.", "Couldn't create file: AVStreamLibrary.txt", JOptionPane.ERROR_MESSAGE);
+                  }
+            }
+            
+            //Failed to load, prompt user
+            
+            //Create output file
+            PrintStream libraryOut = null;
+            try {
+                  libraryOut = new PrintStream(new FileOutputStream(libraryFile));
+            } catch (FileNotFoundException e) {
+                  //Shouldn't hit here, created file before
+            }
+            
+            //Prompt user
+            JFileChooser libraryChooser = new JFileChooser();
+            libraryChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            libraryChooser.setMultiSelectionEnabled(false);
+            
+            //Show dialog, try to use selection
+            int retStatus = libraryChooser.showOpenDialog(null);
+            if(retStatus == JFileChooser.APPROVE_OPTION) {
+                  
+                  //Get the selected file
+                  File retFile = libraryChooser.getSelectedFile();
+                  
+                  //Try loading it
+                  NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), retFile.getAbsolutePath());
+                  Native.loadLibrary(RuntimeUtil.getLibVlcLibraryName(), LibVlc.class);
+                  
+                  //Check if loaded
+                  boolean loaded = false;
+                  try {
+                        LibVlcVersion.getVersion();
+                        loaded = true;
+                  } catch (Exception e) {
+                       //Not needed 
+                  }
+                  
+                  //Print the path to the file
+                  if(loaded) {
+                        libraryOut.println(libraryFile.getAbsolutePath());
+                  }
+                  libraryOut.close();
+            }
+            
+            return false;
       }
 }
