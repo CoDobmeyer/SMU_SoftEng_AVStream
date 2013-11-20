@@ -92,22 +92,4 @@ public class VideoFrame extends JFrame {
       public MediaPlayer getMediaPlayer() {
             return this.mediaPlayer;
       }
-      
-      /**
-       * This main is used to test the VideoFrame without having to log in.
-       * 
-       * @param args
-       */
-      public static void main(String[] args) {
-            //Create video frame
-            VideoFrame videoFrame = new VideoFrame(null);
-            
-            videoFrame.pack();
-            videoFrame.setVisible(true);
-            
-            videoFrame.getMediaPlayer().play();
-            
-            //Tell it to load files, etc.
-            //Call methods in video frame, avoid creating elements here
-      }
 }
