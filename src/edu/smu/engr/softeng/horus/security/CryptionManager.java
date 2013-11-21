@@ -1,10 +1,10 @@
+package edu.smu.engr.softeng.horus.security;
+
 /**
  * Roman Stolyarov, Security, 11/20/2013 7:00am
  * Adapting to coding standards
  */
 
-
-package security;
 /*
  *   Group:             Security
  *   Date of Creation:  10/30/2013 7:56AM
