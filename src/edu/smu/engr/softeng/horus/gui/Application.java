@@ -76,30 +76,7 @@ public class Application implements ActionListener {
                   videoFrame.setVisible(true);
                   
                   MediaPlayer mediaPlayer = videoFrame.getMediaPlayer();
-                  mediaPlayer.playMedia("1384903123419.mpeg");
-                  mediaPlayer.release();
-                  
-                  boolean playing = mediaPlayer.isPlaying();
-                  System.out.println(playing);
-                  while(!playing) {
-                        playing = mediaPlayer.isPlaying();
-                  }
-                  while(playing) {
-                        playing = mediaPlayer.isPlaying();
-                  }
-
-                  mediaPlayer.playMedia("1384903128907.mpeg");
-                  mediaPlayer.release();
-                  
-                  while(!playing) {
-                        playing = mediaPlayer.isPlaying();
-                  }
-                  while(playing) {
-                        playing = mediaPlayer.isPlaying();
-                  }
-
                   mediaPlayer.playMedia("1384903133976.mpeg");
-                  mediaPlayer.release();
                   
             }
             else if(action.getActionCommand().equals(Constants.ACTION_OPEN_COMBINED_STREAM)) {
