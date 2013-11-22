@@ -1,9 +1,4 @@
-/**
- * 
- */
 package edu.smu.engr.softeng.horus.gui;
-
-//import PlayerControlsPanel;
 
 import java.awt.ComponentOrientation;
 import java.awt.Dimension;
@@ -15,10 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
-import uk.co.caprica.vlcj.medialist.MediaList;
 import uk.co.caprica.vlcj.player.MediaPlayer;
-import uk.co.caprica.vlcj.player.MediaPlayerFactory;
-import uk.co.caprica.vlcj.player.list.MediaListPlayerMode;
 
 /**
  *  VideoFrame constructor, creates the media player and control components for the standard 
@@ -35,7 +27,6 @@ public class VideoFrame extends JFrame {
        */
       public VideoFrame(ActionListener actionListener) {
             super("Video Stream");
-            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             Dimension d = new Dimension();
             d.setSize(534, 400);
             setMinimumSize(d);
