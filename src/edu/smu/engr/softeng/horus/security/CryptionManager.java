@@ -59,6 +59,7 @@ public class CryptionManager {
 	 */
 	private static ByteArrayOutputStream encryptData(ByteArrayInputStream input)
 			throws Exception {
+		
 		ByteArrayOutputStream output = new ByteArrayOutputStream(
 				input.available());
 		//Create encryption cipher
