@@ -9,7 +9,7 @@ import edu.smu.engr.softeng.horus.cominfra.Messages.*;
  *Handles and appropriately responds to Messages instances it is passed
  *@author Common Infrastructure
  */
-public class MessageHandler implements Runnable {
+class MessageHandler implements Runnable {
 
 	ArrayBlockingQueue<Message> messages;
 	private static int messageCapacity = 200;
