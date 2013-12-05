@@ -5,6 +5,7 @@
 package edu.smu.engr.softeng.horus.av;
 
 import java.io.File;
+//import edu.smu.engr.softeng.horus.gui*;
 
 /**
  * AVManager The AVManager takes the AV unpackaged from Common Infrastructure's
@@ -45,19 +46,15 @@ public class AVManager {
 	private static void processAVFile(File avFile) {
 		if (record) {
 			if (fullAVFile.length() > 0) {
-				// Concatenate avFile to fullAVFile
+				//Concatenate avFile to fullAVFile
 				System.out.println("File successfully concatinated");
+			} else {
+				fullAVFile = avFile;
 			}
 
 			if (fileEnd) {
 				record = false;
-				// save fullAVFile to disk;
-				if (fullAVFile.delete()) {
-					System.out.println(fullAVFile.getName() + " deleted");
-					fileEnd = false;
-				} else {
-					System.out.println(fullAVFile.getName() + " could not be deleted");
-				}
+				fullAVFile = new File("temp");
 			}
 
 		} else {
