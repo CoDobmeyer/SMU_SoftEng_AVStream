@@ -1,4 +1,7 @@
 /bin
+<<<<<<< HEAD
 
 *.mov
 AVStreamLibrary.txt
+=======
+>>>>>>> 258b3806c6bfe89e870bee3a03bc8a20f30e9a66
