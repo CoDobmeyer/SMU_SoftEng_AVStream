@@ -6,7 +6,7 @@ import java.math.*;           // For BigInteger
 
 public class DiffieHellman_Client {
 
-	public static void main (String arg[]) {
+	public static void initiate(Socket connect) {
 		InputStreamReader isr;
 		BufferedReader in;
 		PrintWriter out;
@@ -15,7 +15,7 @@ public class DiffieHellman_Client {
 			DiffieHellman_Exchange dh = new DiffieHellman_Exchange("DHKey");
 
 			// Connect to the server
-			Socket connect = new Socket("localhost", 8284);
+			//Socket connect = new Socket("localhost", 8284);
 			isr = new InputStreamReader(connect.getInputStream());
 			in = new BufferedReader(isr);
 			out = new PrintWriter(connect.getOutputStream(), true);

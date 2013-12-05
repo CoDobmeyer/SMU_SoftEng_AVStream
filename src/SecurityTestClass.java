@@ -10,13 +10,13 @@ public class SecurityTestClass {
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
-		ByteArrayInputStream in = new ByteArrayInputStream(null);
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		
-		DiffieHellman dh = new DiffieHellman();
+		//DiffieHellman_Server.main(args);
 		
-		CryptionManager.decrypt(in);
-		CryptionManager.encryptData(in);
+		// whenever a client connects on the listener, run this
+		//DiffieHellman_Client.main(args);
+
+		
 
 	}
 

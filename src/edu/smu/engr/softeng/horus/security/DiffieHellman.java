@@ -27,10 +27,6 @@ import java.util.logging.Logger;
 
 public class DiffieHellman {
 
-	/*
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	public int id;
 	private DataOutputStream outputStream;

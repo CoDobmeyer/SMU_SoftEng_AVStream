@@ -24,6 +24,7 @@ public class DiffieHellman_Exchange {
 	   }
 
 	   public BigInteger getPublicKey (String filename) { return x_pub; }
+	   public BigInteger getSecretKey (String filename) { return s_secret; }
 
 	   // Send the client's public key to the server,
 	   // Get the server's public key

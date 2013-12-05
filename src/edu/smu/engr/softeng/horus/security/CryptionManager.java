@@ -15,9 +15,11 @@ package edu.smu.engr.softeng.horus.security;
 import java.io.*;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
@@ -31,26 +33,7 @@ import javax.crypto.NoSuchPaddingException;
 public class CryptionManager {
 
 	private static KeyManager keyMan;
-	private DiffieHellman diffie;
-	
-	/**
-	 * Constructur for CryptionManager class with no inputs
-	 * @return new CryptionManager object
-	 */
-	public CryptionManager() {
-		this.diffie = new DiffieHellman();
-		this.keyMan = new KeyManager(diffie);
-	}
-	
-	/**
-	 * Constructur for CryptionManager class with diffie1 inputs
-	 * @param diffie1 A DiffieHellman object
-	 * @return new CryptionManager object
-	 */
-	public CryptionManager(DiffieHellman diffie1) {
-		this.diffie = diffie1;
-		this.keyMan = new KeyManager(diffie);
-	}
+	private static DiffieHellman_Exchange diffie;
 	
 	/**
 	 * Encrypts input stream and returns output stream
@@ -64,7 +47,7 @@ public class CryptionManager {
 				input.available());
 		//Create encryption cipher
 		Cipher cipher = Cipher.getInstance("AES");
-		cipher.init(Cipher.ENCRYPT_MODE, keyMan.getSecret(), keyMan.getSpec());
+		cipher.init(Cipher.ENCRYPT_MODE, (Key) diffie.getSecretKey("DHKey"), keyMan.getSpec());
 
 		//Attempt to encrypt the input stream
 		try (CipherOutputStream cipherOut = new CipherOutputStream(output,
