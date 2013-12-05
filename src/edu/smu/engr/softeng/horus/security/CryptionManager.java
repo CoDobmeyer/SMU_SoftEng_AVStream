@@ -57,7 +57,7 @@ public class CryptionManager {
 	 * @param input The input byte array
 	 * @return output The output byte array
 	 */
-	private static ByteArrayOutputStream encryptData(ByteArrayInputStream input)
+	public static ByteArrayOutputStream encryptData(ByteArrayInputStream input)
 			throws Exception {
 		
 		ByteArrayOutputStream output = new ByteArrayOutputStream(
