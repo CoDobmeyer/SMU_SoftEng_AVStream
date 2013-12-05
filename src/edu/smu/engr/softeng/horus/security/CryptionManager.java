@@ -40,14 +40,14 @@ public class CryptionManager {
 	 * @param input The input byte array
 	 * @return output The output byte array
 	 */
-	public static ByteArrayOutputStream encryptData(ByteArrayInputStream input)
+	public static ByteArrayOutputStream encrypt(ByteArrayInputStream input)
 			throws Exception {
 		
 		ByteArrayOutputStream output = new ByteArrayOutputStream(
 				input.available());
 		//Create encryption cipher
 		Cipher cipher = Cipher.getInstance("AES");
-		cipher.init(Cipher.ENCRYPT_MODE, (Key) diffie.getSecretKey("DHKey"), keyMan.getSpec());
+		cipher.init(Cipher.ENCRYPT_MODE, (Key)diffie.getSecretKey("DHKey"));
 
 		//Attempt to encrypt the input stream
 		try (CipherOutputStream cipherOut = new CipherOutputStream(output,
@@ -66,13 +66,12 @@ public class CryptionManager {
 	 * @param in The input byte array
 	 * @return out The output byte array
 	 */
-	public static ByteArrayOutputStream decrypt(ByteArrayInputStream in) {
+	public static ByteArrayOutputStream decrypt(ByteArrayInputStream in) throws InvalidAlgorithmParameterException {
 		ByteArrayOutputStream out = new ByteArrayOutputStream(in.available());
 		try {
 			//Create decryption cipher
 			Cipher decrypter = Cipher.getInstance("AES");
-			decrypter.init(Cipher.DECRYPT_MODE, keyMan.getSecret(),
-					keyMan.getSpec());
+			decrypter.init(Cipher.DECRYPT_MODE, (Key) diffie.getSecretKey("DHKey"));
 
 			try (CipherInputStream cipherIn = new CipherInputStream(in,
 					decrypter)) {
@@ -85,8 +84,7 @@ public class CryptionManager {
 			out.close();
 
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException
-				| IOException | InvalidKeyException
-				| InvalidAlgorithmParameterException ex) {
+				| IOException | InvalidKeyException ex) {
 			Logger.getLogger(CryptionManager.class.getName()).log(Level.SEVERE,
 					null, ex);
 		}
