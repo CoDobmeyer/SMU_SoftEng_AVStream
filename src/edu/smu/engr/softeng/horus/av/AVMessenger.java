@@ -22,7 +22,7 @@ public class AVMessenger extends Message{
      */
     public AVMessenger(){
     	
-    	//first parameter is typeId (determined by interface); 
+    	//first parameter is typeId (determined by interface) - need to change to reflect what the actual interface number turns out to be
     	//second parameter is clientID (hardcode for now - current cominfra impl will cause problems with multiple clients)
     	super(1, 1); 
     	
@@ -33,7 +33,7 @@ public class AVMessenger extends Message{
      * @param payload: Data to be stored in AVMessenger for sending
      */
     public AVMessenger(ByteArrayOutputStream payload) {
-    	//first parameter is typeId (determined by interface); 
+    	//first parameter is typeId (determined by interface) - need to change to reflect what the actual interface number turns out to be
     	//second parameter is clientID (hardcode for now - current cominfra impl will cause problems with multiple clients)
     	super(1, 1);
     	
