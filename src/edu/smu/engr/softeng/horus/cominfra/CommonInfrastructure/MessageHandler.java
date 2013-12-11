@@ -1,8 +1,8 @@
 package edu.smu.engr.softeng.horus.cominfra.CommonInfrastructure;
 
 import java.util.concurrent.ArrayBlockingQueue;
-import Reporting.ReportInterface;
-import Messages.*;
+import edu.smu.engr.softeng.horus.cominfra.Reporting.ReportInterface;
+import edu.smu.engr.softeng.horus.cominfra.Messages.*;
 
 /**
  *MessageHandler
@@ -18,9 +18,6 @@ class MessageHandler implements Runnable {
 	
 	//We'll have to give it references to whichever parts it needs to communicate with
 	private ClientManager cm;
-	
-	
-	
 	
 	/**
      *Constructor that initializes the global variables
