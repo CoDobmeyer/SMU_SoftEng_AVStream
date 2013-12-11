@@ -12,8 +12,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-//import edu.smu.engr.softeng.horus.CommonInstrastructure
-//import edu.smu.engr.softeng.horus.Security
+import edu.smu.engr.softeng.horus.cominfra.CommonInfrastructure.*;
+import edu.smu.engr.softeng.horus.security.*;
 
 /**
  * AVPackager
@@ -100,8 +100,8 @@ public class AVPackager extends Thread {
 			output.write(data.read());
 		}
 		
-		//return encrypt(data); //uncomment when Security becomes available
-		return output;
+		return CryptionManager.encrypt(data);//encrypt(data); //uncomment when Security becomes available
+		//return output;
 	}
 	
 	/**
@@ -113,7 +113,7 @@ public class AVPackager extends Thread {
 	private void packageMessage(ByteArrayOutputStream msg) {
 		this.msg.setPayload(msg);
 		
-		//processMessage(this.msg); //uncomment when CommonInfra becomes available
+		ClientInterface.sendMessage(this.msg); //uncomment when CommonInfra becomes available
 	}
 	
 }

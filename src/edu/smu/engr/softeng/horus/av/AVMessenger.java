@@ -5,12 +5,14 @@ package edu.smu.engr.softeng.horus.av;
 
 import java.io.ByteArrayOutputStream;
 
+import edu.smu.engr.softeng.horus.cominfra.Messages.*;
+
 /**
  * AVMessenger
  * Storage for audio and video data. 
  * @author Video
  */
-public class AVMessenger /*extends Message*/{
+public class AVMessenger extends Message{
     
     ByteArrayOutputStream payload;
     
@@ -18,13 +20,23 @@ public class AVMessenger /*extends Message*/{
      * Constructor
      * @param No parameter values.
      */
-    public AVMessenger(){}
+    public AVMessenger(){
+    	
+    	//first parameter is typeId (determined by interface); 
+    	//second parameter is clientID (hardcode for now - current cominfra impl will cause problems with multiple clients)
+    	super(1, 1); 
+    	
+    }
     
     /**
      * Constructor
      * @param payload: Data to be stored in AVMessenger for sending
      */
     public AVMessenger(ByteArrayOutputStream payload) {
+    	//first parameter is typeId (determined by interface); 
+    	//second parameter is clientID (hardcode for now - current cominfra impl will cause problems with multiple clients)
+    	super(1, 1);
+    	
     	setPayload(payload);
     }
     
